@@ -1,0 +1,29 @@
+{
+  "name": "map",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node app",
+    "devstart": "nodemon ./bin/www"
+  },
+  "description": "Map-App",
+  "author": {
+    "name": "Anastasia Barkova"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "pug": "^3.0.2",
+    "sqlite3": "^5.1.7-rc.0"
+  },
+  "engines": {
+    "node": "~6.10.x"
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "nodemon": "^3.0.2"
+  },
+  "eslintConfig": {}
+}

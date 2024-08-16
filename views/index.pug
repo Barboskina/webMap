@@ -1,0 +1,106 @@
+doctype html
+html(lang="ru")
+head
+meta(http-equiv="X-UA-Compatible", content="IE=edge")
+meta(name="viewport", content="width=device-width,initial-scale=1.0")
+
+link(href="stylesheets/style.css", rel="stylesheet")
+link(rel="stylesheet", href="stylesheets/bootstrap.min.css")
+
+script(src="https://api-maps.yandex.ru/2.1/?apikey=API_KEY" type="text/javascript")
+script(src="./javascripts/Level.js")
+
+script(src="https://unpkg.com/htmx.org@1.9.8")
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous")
+body
+header
+<div style="height: 100%;">
+<div class="container" style="height: 14%;">
+<div class="row align-items-center justify-content-center">
+<div class="col-lg-4 col-sm-12 col-md-6 pb-2 center-btns">
+<button id="btn1" class="btn btn-primary m-1" hx-post="/first-floor" hx-target="#map-container" hx-trigger="click, load">1 этаж</button>
+<button id="btn2" class="btn btn-primary m-1" hx-post="/second-floor" hx-target="#map-container">2 этаж</button>
+<button id="btn3" class="btn btn-primary m-1" hx-post="/third-floor" hx-target="#map-container">3 этаж</button>
+<button id="btn4" class="btn btn-primary m-1" hx-post="/four-floor" hx-target="#map-container">4 этаж</button>
+</div>
+
+<div class="col-lg-4 col-md-6 pb-2 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
+<form class="in-row" hx-post="/path" hx-target="#map-container">
+<div class="d-flex">
+<input type="search" id="from" name="from" placeholder="Откуда" class="form-control me-2">
+</div>
+<div class="d-flex">
+<input type="search" id="to" name="to" placeholder="Куда" class="form-control me-2">
+</div>
+<button id="pathButton" class="btn btn-warning">Применить</button>
+</form>
+</div>
+<div class="col-lg-4 pb-2 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
+<form class="d-flex" hx-post="/search" hx-target="#map-container" role="search">
+<div class="mr-2 position-relative">
+<input class="form-control me-2 form-control" hx-post="/live-search" hx-trigger="input changed delay:200ms" hx-target="#live-search-results" hx-indicator=".htmx-indicator" name="search" id="search" type="search" autocomplete="off" placeholder="Номер аудитории">
+<table class="table d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block rounded bg-white position-absolute z-10">
+<tbody id="live-search-results"></tbody>
+</table>
+</div>
+<input id="searchButton" type="submit" class="btn btn-danger mx-2" value="Найти">
+</form>
+
+</div>
+</div>
+</div>
+
+<div class="container-fluid p-0 m-0" style="height:86%;">
+
+<div id="map-container" style="height:86%;"></div>
+
+<div class="d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none row pt-1">
+<div class="col-md-8 offset-md-2 center-btns p-6">
+<button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#modalSearch">Поиск</button>
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPath">Проложить путь</button>
+</div>
+</div>
+<!-- Модальное окно -->
+<div class="modal fade" id="modalSearch" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-fullscreen-sm-down">
+<div class="modal-content">
+<div class="modal-body">
+<form class="d-flex" hx-post="/search" hx-target="#map-container"role="search" hx-trigger="enter">
+<input class="form-control me-2 form-control" hx-post="/live-search-modal" hx-trigger="input changed delay:200ms, search, load" hx-target="#search-results" hx-indicator=".htmx-indicator" name="search" id="search" type="search" autocomplete="off" placeholder="Поиск">
+<div class="center-form"><button type="button" class="btn btn-outline-secondary center-form" data-bs-dismiss="modal" aria-label="Закрыть">Отмена</button></div>
+</form>
+
+<table class="table mt-2">
+<tbody id="search-results"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="modalPath" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-fullscreen-sm-down">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="staticBackdropLabel"></h5>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+</div>
+<div class="modal-body">
+<form class="in-row" hx-post="/path" hx-target="#map-container">
+<div class="d-flex">
+<input type="search" id="from" name="from" placeholder="Откуда" class="form-control me-2">
+</div>
+<div class="d-flex">
+<input type="search" id="to" name="to" placeholder="Куда" class="form-control me-2">
+</div>
+<button id="pathButton" class="btn btn-warning">Применить</button>
+</form>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>

@@ -1,0 +1,20 @@
+{
+    "name": "course/map",
+    "autoload": {
+        "psr-4": {
+            "Course\\Map\\": "lib/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Anastasia Barkova",
+            "email": "barkova.anastasia2015@yandex.ru"
+        },
+        {
+            "name": "Dina Deinego"
+        }
+    ],
+    "require": {
+        "slim/slim": "3.*"
+    }
+}
